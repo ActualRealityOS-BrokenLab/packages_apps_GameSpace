@@ -1,6 +1,5 @@
 /*
  * Copyright (C) 2021 Chaldeaprjkt
- *               2022 crDroid Android Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,7 +26,6 @@ import android.os.IBinder
 import android.os.Looper
 import android.os.PowerManager
 import android.os.UserHandle
-import android.provider.Settings
 import android.view.WindowManager
 import com.android.internal.util.ScreenshotHelper
 import com.android.systemui.screenrecord.IRemoteRecording
@@ -59,8 +57,6 @@ class ScreenUtils @Inject constructor(private val context: Context) {
 
     val recorder: IRemoteRecording? get() = remoteRecording
 
-    private var isGestureLocked = false
-
     fun bind() {
         isRecorderBound = context.bindServiceAsUser(Intent().apply {
             component = ComponentName(
@@ -82,11 +78,6 @@ class ScreenUtils @Inject constructor(private val context: Context) {
             context.unbindService(recorderConnection)
         }
         remoteRecording = null
-        if (isGestureLocked) {
-            Settings.System.putInt(context.contentResolver,
-                    Settings.System.LOCK_GESTURE_STATUS, 0)
-            isGestureLocked = false
-        }
     }
 
     fun takeScreenshot(onComplete: ((Uri?) -> Unit)? = null) {
@@ -107,14 +98,5 @@ class ScreenUtils @Inject constructor(private val context: Context) {
             } else {
                 wakelock?.takeIf { it.isHeld }?.release()
             }
-        }
-
-    var lockGesture = false
-        get() = isGestureLocked
-        set(enable) {
-            Settings.System.putInt(context.contentResolver,
-                    Settings.System.LOCK_GESTURE_STATUS, if (enable) 1 else 0)
-            field = enable
-            isGestureLocked = enable
         }
 }

@@ -20,10 +20,14 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginTop="4dp"
-    android:columnCount="2"
+    android:columnCount="3"
     android:orientation="horizontal">
 
     <io.chaldeaprjkt.gamespace.widget.tiles.GameModeTile
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <io.chaldeaprjkt.gamespace.widget.tiles.HeadsupTile
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
@@ -35,7 +39,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    <io.chaldeaprjkt.gamespace.widget.tiles.NotificationTile
+    <io.chaldeaprjkt.gamespace.widget.tiles.LockGestureTile
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 

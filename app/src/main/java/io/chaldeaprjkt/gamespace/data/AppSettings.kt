@@ -40,6 +40,11 @@ class AppSettings @Inject constructor(private val context: Context) {
         get() = db.getBoolean("show_fps", false)
         set(point) = db.edit().putBoolean("show_fps", point).apply()
 
+    var noHeadsUp
+        get() = db.getBoolean(KEY_HEADS_UP_DISABLE, true)
+        set(it) = db.edit().putBoolean(KEY_HEADS_UP_DISABLE, it).apply()
+
+
     var noAutoBrightness
         get() = db.getBoolean(KEY_AUTO_BRIGHTNESS_DISABLE, true)
         set(it) = db.edit().putBoolean(KEY_AUTO_BRIGHTNESS_DISABLE, it).apply()
@@ -51,10 +56,6 @@ class AppSettings @Inject constructor(private val context: Context) {
     var stayAwake
         get() = db.getBoolean(KEY_STAY_AWAKE, false)
         set(value) = db.edit().putBoolean(KEY_STAY_AWAKE, value).apply()
-
-    var notificationMode: Int
-        get() = db.getString(KEY_NOTIFICATION_MODE, "3").toInt()
-        set(value) = db.edit().putString(KEY_NOTIFICATION_MODE, value.toString()).apply()
 
     var callsMode: Int
         get() = db.getString(KEY_CALLS_MODE, "0").toInt()
@@ -68,18 +69,13 @@ class AppSettings @Inject constructor(private val context: Context) {
         get() = db.getBoolean(KEY_ADB_DISABLE, false)
         set(it) = db.edit().putBoolean(KEY_ADB_DISABLE, it).apply()
 
-    var lockGesture
-        get() = db.getBoolean(KEY_LOCK_GESTURE, false)
-        set(value) = db.edit().putBoolean(KEY_LOCK_GESTURE, value).apply()
-
     companion object {
+        const val KEY_HEADS_UP_DISABLE = "gamespace_heads_up_disabled"
         const val KEY_AUTO_BRIGHTNESS_DISABLE = "gamespace_auto_brightness_disabled"
         const val KEY_3SCREENSHOT_DISABLE = "gamespace_tfgesture_disabled"
         const val KEY_STAY_AWAKE = "gamespace_stay_awake"
-        const val KEY_NOTIFICATION_MODE = "gamespace_notification_mode"
         const val KEY_CALLS_MODE = "gamespace_calls_mode"
         const val KEY_RINGER_MODE = "gamespace_ringer_mode"
         const val KEY_ADB_DISABLE = "gamespace_adb_disabled"
-        const val KEY_LOCK_GESTURE = "gamespace_lock_gesture"
     }
 }
